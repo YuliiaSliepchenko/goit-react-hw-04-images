@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 
 export const ImageGalleryItem = ({ src, alt, largeImageURL, openModal }) => {
     return (
-        <li className={s.ImageGalleryItem} onClick={() => openModal(largeImageURL)}>
+        <li  className={s.ImageGalleryItem} onClick={() => openModal(largeImageURL)}>
             <img src={src} alt={alt} className={s.ImageGalleryItemImage} />
         </li>
     );

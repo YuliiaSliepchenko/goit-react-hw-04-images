@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import { useEffect } from 'react';
 import s from './Modal.module.css'
 import { createPortal } from 'react-dom';
 import PropTypes from 'prop-types';
@@ -8,61 +8,34 @@ const modalRoot = document.querySelector('#modal-root');
 
 
 
- export default class Modal extends Component {
-    componentDidMount() {
-        window.addEventListener('keydown', this.handleKeyDown);
-    }
-
-    componentWillUnmount() {
-        window.removeEventListener('keydown', this.handleKeyDown);
-    }
-
-    handleKeyDown = e => {
-        if (e.code === 'Escape') 
-            this.props.closeModal();
-        
+export default function Modal({ closeModal, imageURL }) {
+    const handleKeyDown = e => {
+        if (e.code === 'Escape') closeModal();
+        console.log(e.code);
     };
 
-    handleBackdropClick = e => {
-    if (e.target === e.currentTarget) this.props.closeModal();
-  };
+   const handleBackdropClick = e => {
+    if (e.target === e.currentTarget) closeModal();
+    };
+    
+    useEffect(() => {
+        window.addEventListener('keydown', handleKeyDown);
+        return () => window.removeEventListener('keydown', handleKeyDown);
+    });
 
-    render() {
+
         return createPortal(
-            <div onClick={this.handleBackdropClick} className={s.Overlay} >
+            <div onClick={handleBackdropClick} className={s.Overlay} >
                 <div className={s.Modal}>
-                    <img src={this.props.imageURL} alt={this.props.imageURL} />
+                    <img src={imageURL} alt={imageURL} />
                 </div>
             </div>,
             modalRoot
         );
     }
-}
+
 
 Modal.propTypes = {
-    largeImageURL: PropTypes.string.isRequired,
+    imageURL: PropTypes.string.isRequired,
     closeModal: PropTypes.func,
 };
-// export default Modal;
-
-// Modal.propTypes = {
-//   largeImageURL: PropTypes.string,
-//   onClose: PropTypes.func,
-// };
-
-// instance.show()
-// componentDidMount() {
-//     window.addEventListener('keydown', this.handleKeyDown);
-//   }
-
-//   componentWillUnmount() {
-//     window.removeEventListener('keydown', this.handleKeyDown);
-//   }
-
-//   handleKeyDown = e => {
-//     if (e.code === 'Escape') this.props.onClose();
-//   };
-
-//   handleBackdropClick = e => {
-//     if (e.currentTarget === e.target) this.props.onClose();
-//   };

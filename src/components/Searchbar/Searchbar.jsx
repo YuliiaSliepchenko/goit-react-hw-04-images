@@ -1,51 +1,43 @@
 import s from './Searchbar.module.css';
-import { Component } from 'react';
+import { useState } from 'react';
 import PropTypes from 'prop-types';
 
 
 
-export default class Serchbar extends Component {
-   state = {
-    query: '',
+export default function Serchbar({setNewQuery}) {
+    const [query, setQuery] = useState('');
+    const inputChange = e => {
+        setQuery(e.currentTarget.value);
     };
-
-    setQuery = e => {
-        this.setState({
-            query: e.currentTarget.value,
-        });
-    };
-    onFormSubmit = e => {
+    const onFormSubmit = e => {
         e.preventDefault();
-        if (this.state.query.trim() === '') {
+        if (query.trim() === '') {
             return;
         }
-        this.props.setQuery(this.state.query.trim().toLowerCase());
-        this.setState({ query: '' });
+        setNewQuery(query.trim().toLowerCase());
+        setQuery('');
     };
-
-    render() {
         return ( 
             <header className={s.Searchbar}>
-              <form onSubmit={this.onFormSubmit} className={s.SearchForm}>
+              <form onSubmit={onFormSubmit} className={s.SearchForm}>
                 <button type="submit" className={s.SearchFormButton}>
                    <span className={s.SearchFormButtonLabel}>Search</span>
                 </button>
 
     <input
       className={s.SearchFormInput}
-      name='query'
+      name="query"
       type="text"
       autoComplete="off"
       autoFocus
     placeholder="Search images and photos"
-    value={this.state.query}
-     onChange={this.setQuery}
+    value={query}
+     onChange={inputChange}
     />
   </form>
 </header> 
      );
-    }
-}
+};
     
 Serchbar.protoTypes = {
     setQuery: PropTypes.func,
