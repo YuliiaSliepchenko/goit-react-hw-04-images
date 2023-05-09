@@ -6,6 +6,7 @@ import { ImageGalleryItem } from '../ImageGalleryItem/ImageGalleryItem';
 
 
 export default function ImageGallery({ images, openModal }) {
+    console.log(images);
     return (<ul className={s.ImageGallery}>
         {images.map(({ id, webformatURL, tags, largeImageURL }) => (
             <ImageGalleryItem

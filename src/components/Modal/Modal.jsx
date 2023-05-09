@@ -27,7 +27,7 @@ export default function Modal({ closeModal, imageURL }) {
         return createPortal(
             <div onClick={handleBackdropClick} className={s.Overlay} >
                 <div className={s.Modal}>
-                    <img src={imageURL} alt={imageURL} />
+                    <img src={imageURL} alt='' />
                 </div>
             </div>,
             modalRoot
