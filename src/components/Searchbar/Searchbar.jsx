@@ -40,5 +40,5 @@ export default function Serchbar({setNewQuery}) {
 };
     
 Serchbar.protoTypes = {
-    setQuery: PropTypes.func,
+    setNewQuery: PropTypes.func,
 };
